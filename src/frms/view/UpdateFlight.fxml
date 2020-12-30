@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="526.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frms.controller.UpdateFlightController">
+   <children>
+      <AnchorPane prefHeight="69.0" prefWidth="850.0" style="-fx-background-color: #362b56;">
+         <children>
+            <Label layoutX="347.0" layoutY="16.0" text="Update Flight" textFill="#fffefe">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="airlineName" layoutX="282.0" layoutY="89.0" prefHeight="25.0" prefWidth="298.0" promptText="Name" />
+      <TextField fx:id="flightCode" layoutX="282.0" layoutY="126.0" prefHeight="25.0" prefWidth="298.0" promptText="Flight Code" />
+      <TextField fx:id="origin" layoutX="282.0" layoutY="172.0" prefHeight="25.0" prefWidth="298.0" promptText="Origin" />
+      <TextField fx:id="fare" layoutX="282.0" layoutY="320.0" prefHeight="25.0" prefWidth="298.0" promptText="Fare" />
+      <TextField fx:id="seats" layoutX="282.0" layoutY="359.0" prefHeight="25.0" prefWidth="298.0" promptText="Seats" />
+      <TextField fx:id="destination" layoutX="282.0" layoutY="207.0" prefHeight="25.0" prefWidth="298.0" promptText="Destination" />
+      <DatePicker fx:id="date" layoutX="344.0" layoutY="396.0" promptText="Date" />
+      <Button layoutX="380.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#updateFlight" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #362b56;" text="Update Flight" textFill="#fffbfb">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <TextField fx:id="departureTime" layoutX="282.0" layoutY="251.0" prefHeight="25.0" prefWidth="298.0" promptText="Departure Time" />
+      <TextField fx:id="arrivalTime" layoutX="282.0" layoutY="288.0" prefHeight="25.0" prefWidth="298.0" promptText="Arrival Time" />
+   </children>
+</AnchorPane>
