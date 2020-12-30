@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 
 public class addFlightController {
 
+    // == fields ==
+
     @FXML
     private TextField airlineName;
 
@@ -43,11 +45,16 @@ public class addFlightController {
     @FXML
     private Button addFlight;
 
+    // == methods ==
+
+
+    // handles the addtion of flgh after user clicks on add flight
     @FXML
     public void handleAddFlight() {
 
         String alert = "";
 
+        // checking if not empty
 
         if (airlineName.getText().isBlank())
             alert = "Flight name must not be empty!\n";
@@ -73,14 +80,16 @@ public class addFlightController {
             return;
         }
 
+        // checking for correct format of inputs
+
         if (!airlineName.getText().trim().matches("[A-Za-z\\s]+"))
             alert += "Flight name must be alphabets only!\n";
         if (!flightCode.getText().trim().matches("^[A-Za-z0-9]+$"))
             alert  += "Flight code must be alphabets and numbers only no spaces!\n";
-        if (!origin.getText().trim().matches("^[A-Za-z]+$"))
-           alert += "Origin must be alphabets only and no spaces!\n";
-        if (!destination.getText().trim().matches("^[A-Za-z]+$"))
-            alert += "Destination must be alphabets only no spaces!\n";
+        if (!origin.getText().trim().matches("^[A-Za-z\\]+$"))
+           alert += "Origin must be alphabets only!\n";
+        if (!destination.getText().trim().matches("^[A-Za-z\\]+$"))
+            alert += "Destination must be alphabets only!\n";
         if (!arrivalTime.getText().trim().matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
             alert += "Arrival Time must be 24h format (hh:mm) only!\n";
         if (!departureTime.getText().trim().matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
@@ -96,14 +105,18 @@ public class addFlightController {
         }
 
 
+        // making flight obj with supplied inputs
+
         Flight flight = new Flight(airlineName.getText().trim(),flightCode.getText().trim(),origin.getText().trim(),destination.getText().trim()
                 ,arrivalTime.getText().trim(),departureTime.getText().trim(),Integer.parseInt(seats.getText().trim()),
                 Double.parseDouble(fare.getText().trim()),date.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
 
         try {
 
+            // adding in DS
             FlightSLDS.getInstance().addFlight(flight);
 
+            // adding in DB
             DataSource.getInstance().addFlight(flight);
 
         } catch (Exception e) {
@@ -111,11 +124,13 @@ public class addFlightController {
             return;
         }
 
+        // adding in gui
         showFlightController.flights.add(flight);
         showAlert("Flight Added!");
     }
 
 
+    // methods to show alert when needed
     private void showAlert(String text) {
 
         Alert inputAlert;

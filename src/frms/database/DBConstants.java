@@ -86,4 +86,7 @@ public class DBConstants {
             " SET " + COLUMN_PASSENGERS_FLIGHT_CODE  + " = ?" + " WHERE " +
             COLUMN_PASSENGERS_FLIGHT_CODE + " = ?";
 
+    protected static final String QUERY_GET_FLIGHT_WITH_FLIGHT_CODE = "SELECT * FROM " + DATABASE_FRMS + "." + TABLE_FLIGHTS +
+            " WHERE " + COLUMN_FLIGHTS_FLIGHT_CODE + " = ?";
+
 }

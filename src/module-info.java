@@ -1,4 +1,4 @@
-module flight.demo {
+module frms {
 
     requires javafx.controls;
     requires javafx.fxml;

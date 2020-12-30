@@ -17,6 +17,8 @@ import java.util.Optional;
 
 public class showFlightController {
 
+    // == fields ==
+
     @FXML
     private TableView<Flight> showFlightTable;
 
@@ -65,12 +67,15 @@ public class showFlightController {
     @FXML
     private Label flightToDisplay;
 
+    // flights storage for gui
     protected static final ObservableList<Flight> flights = FXCollections.observableArrayList();
 
+    // after initializing of app , loads flights from DS to gui
     public static boolean loadAllFlightsGUI() {
 
         try {
 
+            // check if have flights
             if (!FlightSLDS.getInstance().isEmpty()) {
                 for (Flight i = FlightSLDS.getInstance().getHead(); i != null; i = i.getNext()) {
 
@@ -88,7 +93,10 @@ public class showFlightController {
 
     }
 
+    // method call when show flight gui shows
     public void initialize() {
+
+        // setting gui table with flight fields
 
         airlineName.setCellValueFactory(new PropertyValueFactory<>("airlineName"));
         flightCode.setCellValueFactory(new PropertyValueFactory<>("flightCode"));
@@ -102,13 +110,16 @@ public class showFlightController {
         seatsOccupied.setCellValueFactory(new PropertyValueFactory<>("seatsOccupied"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
+        // setting table in gui with flight data
         showFlightTable.setItems(flights);
 
+        // if available select the first flight when app launches
         showFlightTable.getSelectionModel().selectFirst();
 
     }
 
 
+    // goes back to homepage when user clicks back button
     @FXML
     private void backToHomePage() {
         SceneSelector.switchScreen("homePage");
@@ -116,6 +127,7 @@ public class showFlightController {
 
     }
 
+    // opens add flight dialog when user presses add flight
     @FXML
     public void openAddFlight() {
 
@@ -123,6 +135,7 @@ public class showFlightController {
 
     }
 
+    // made single method to open dialog of different kinds
     public Object openDialog(String controllerPath) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(anchorPane.getScene().getWindow());
@@ -144,21 +157,25 @@ public class showFlightController {
         return fxmlLoader.getController();
     }
 
+    // opens update flight dialog when user presses add flight
     @FXML
     public void openUpdateFlight() {
 
+        // if nothing selected then returns
         if (showFlightTable.getSelectionModel().getSelectedItem() == null)
             return;
 
 
-
+        // getting instance of opened dialog
         UpdateFlightController updateFlightController =
                 (UpdateFlightController)openDialog("/frms/view/updateFlight.fxml");
 
+        // supplying instance of opened dialog to update flight controller
         updateFlightController.process(showFlightTable.getSelectionModel().getSelectedItem());
 
     }
 
+    // opens add show passengers dialog when user presses add flight
     @FXML
     public void openShowPassengers() {
 
@@ -172,11 +189,12 @@ public class showFlightController {
 
     }
 
+    // deletes selected flight
     @FXML
     public void deleteFlight() {
 
         Flight flightToDelete = showFlightTable.getSelectionModel().getSelectedItem();
-
+        // check if something selected
         if (flightToDelete == null) {
             return;
         }
@@ -206,6 +224,7 @@ public class showFlightController {
 
     }
 
+    // alert methods to show different kinds of alerts
     private ButtonType showAlert(String content, String header, Alert.AlertType alertType) {
 
         Alert alert = new Alert(alertType);
@@ -219,6 +238,7 @@ public class showFlightController {
 
     }
 
+    // display selected flight label
     @FXML
     public void displayFlight() {
 
@@ -234,6 +254,7 @@ public class showFlightController {
 
     }
 
+    // search flight and show on gui
     @FXML
     public void searchFlight() {
 
@@ -280,6 +301,7 @@ public class showFlightController {
 
     }
 
+    // show all flights available on gui
     @FXML
     public void showAllFlights() {
 

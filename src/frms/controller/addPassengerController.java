@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 
 public class addPassengerController {
 
+     // == fields ==
+
     @FXML
     private TextField name;
 
@@ -30,11 +32,15 @@ public class addPassengerController {
     @FXML
     private DatePicker dOB;
 
+    // supplied flight obj the user selected
+
     private static Flight flight = null;
 
+    // handle the adding of passenger after user click on add passenger
     @FXML
     public void handleAddPassenger() {
 
+        // check first if seat is even available
         if (flight.getSeatsRemaining() <= 0) {
             showAlert("No more seats remaining!");
             return;
@@ -42,6 +48,7 @@ public class addPassengerController {
 
         String alert = "";
 
+        // check for empty fields
 
         if (name.getText().isBlank())
             alert = "name must not be empty!\n";
@@ -60,6 +67,8 @@ public class addPassengerController {
             showAlert(alert);
             return;
         }
+
+        // check for correct format
 
         if (!name.getText().trim().matches("[A-Za-z\\s]+"))
             alert += "Name must be alphabets only!\n";
@@ -87,12 +96,19 @@ public class addPassengerController {
 
         try {
 
+            // adding in DB
             DataSource.getInstance().addPassenger(flight.getFlightCode(),passenger);
 
+            // adding in DS
             flight.getPassengers().insertPassenger(passenger);
+
+            // adding 1 to seats occupied
             flight.setSeatsOccupied(1);
+
+            //subtracting 1 from seats remaining
             flight.setSeatsRemaining(-1);
 
+            // update seats info in db
             DataSource.getInstance().updateFlightSeats(flight.getFlightCode(),
                     flight.getSeatsOccupied(),flight.getSeatsRemaining());
 
@@ -102,10 +118,11 @@ public class addPassengerController {
             return;
         }
 
+        // add in gui
         showPassengersController.passengers.add(passenger);
 
         try {
-
+            // basically performing refreshing gui by removing and adding
             showFlightController.flights.remove(flight);
             showFlightController.flights.add(flight);
 
@@ -116,7 +133,7 @@ public class addPassengerController {
         showAlert("Passenger Added!");
     }
 
-
+// show alerts with supplied problem
     private void showAlert(String text) {
 
         Alert inputAlert;

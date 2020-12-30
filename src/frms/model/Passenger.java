@@ -2,6 +2,8 @@ package frms.model;
 
 public class Passenger {
 
+    //  == fields ==
+
     private String name;
     private int age;
     private String dOB;
@@ -12,6 +14,7 @@ public class Passenger {
     private Passenger next;
     private Passenger previous;
 
+    //  == constructor ==
 
     public Passenger(String name, int age, String dOB, String nationality, String idNo, String passportNo) {
         this.name = name;
@@ -22,6 +25,8 @@ public class Passenger {
         this.passportNo = passportNo;
         this.needSpecialAssistance = age == 1 || age == 2 || age > 65;
     }
+
+    //  == getter/setter ==
 
     public String getName() {
         return name;

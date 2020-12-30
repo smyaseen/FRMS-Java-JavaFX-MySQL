@@ -30,7 +30,7 @@ public class DataSource {
     private PreparedStatement updateFlightSeats;
     private PreparedStatement deleteAllPassengersFromAFlight;
     private PreparedStatement updatePassengersFlightCode;
-
+    private PreparedStatement getFlightWithFlightCode;
     // == constructors ==
 
 
@@ -66,7 +66,7 @@ public class DataSource {
                     connection.prepareStatement(DBConstants.QUERY_DELETE_ALL_PASSENGERS_OF_A_FLIGHT);
             updatePassengersFlightCode =
                     connection.prepareStatement(DBConstants.QUERY_UPDATE_PASSENGERS_FLIGHT_CODE);
-
+            getFlightWithFlightCode = connection.prepareStatement(DBConstants.QUERY_GET_FLIGHT_WITH_FLIGHT_CODE);
             return true;
 
         } catch (Exception e) {
@@ -110,6 +110,9 @@ public class DataSource {
             else if (updatePassengersFlightCode == null)
                 throw new Exception("update passenger code PS null");
 
+            else if (getFlightWithFlightCode == null)
+                throw new Exception("getFlightWithFlightCode PS null");
+
 
             addFlight.close();
             addPassenger.close();
@@ -121,6 +124,7 @@ public class DataSource {
             updateFlightSeats.close();
             deleteAllPassengersFromAFlight.close();
             updatePassengersFlightCode.close();
+            getFlightWithFlightCode.close();
 
             connection.close();
 
@@ -307,11 +311,6 @@ public class DataSource {
         updatePassengersFlightCode.setString(1,newFlightCode);
         updatePassengersFlightCode.setString(2,oldFlightCode);
 
-        int rowsAffected = updatePassengersFlightCode.executeUpdate();
-
-
-        if (rowsAffected != 1)
-            throw new Exception("update passenger flight code error!");
 
     }
 

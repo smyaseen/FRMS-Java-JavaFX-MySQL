@@ -15,6 +15,8 @@ import java.util.Optional;
 
 public class showPassengersController {
 
+    // == fields ==
+
     @FXML
     private BorderPane borderPane;
 
@@ -42,15 +44,17 @@ public class showPassengersController {
     @FXML
     private TableColumn<Passenger,String> nationality;
 
+    // ds for gui
     public static final ObservableList<Passenger> passengers = FXCollections.observableArrayList();
 
+    // supplied obj of user selected flight
     private static Flight flight;
 
     @FXML
     private Label passengerToDisplay;
 
 
-
+// call this method when gui passengers opens open
     public void initialize() {
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -64,14 +68,18 @@ public class showPassengersController {
         showPassengersTable.setItems(passengers);
     }
 
-
+    // set supplied obj of user selected flight
     public void processTable(Flight flight) {
 
+
         try {
+
+            // clear if previously have data
             passengers.clear();
 
             this.flight = flight;
 
+            // add passengers from ds to gui ds
             if (!flight.getPassengers().isEmpty()) {
                 for (Passenger i = flight.getPassengers().getFirst(); i != null; i = i.getNext()) {
                     passengers.add(i);
@@ -83,6 +91,7 @@ public class showPassengersController {
         }
     }
 
+    // show alerts of different kinds
     private ButtonType showAlert(String content, String header, Alert.AlertType alertType) {
 
         Alert alert = new Alert(alertType);
@@ -96,6 +105,7 @@ public class showPassengersController {
 
     }
 
+    // opens add passenger dialog
     @FXML
     public void openAddPassenger() {
 
@@ -128,6 +138,7 @@ public class showPassengersController {
 
     }
 
+    // deletes selected passenger user selected
     @FXML
     public void deletePassenger() {
 
@@ -173,6 +184,7 @@ public class showPassengersController {
 
     }
 
+    // display label of passenger user selected
     @FXML
     public void displayPassenger() {
 

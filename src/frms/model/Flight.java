@@ -2,6 +2,8 @@ package frms.model;
 
 public class Flight {
 
+    // == fields ==
+
     private String airlineName;
     private String flightCode;
     private String origin;
@@ -17,9 +19,11 @@ public class Flight {
     private Flight next;
     private Flight previous;
 
+    // == constructor ==
+
     public Flight(String airlineName, String flightCode, String origin, String destination, String arrivalTime, String departureTime, int totalSeats, double fare, String date) {
         this.airlineName = airlineName;
-        this.flightCode = flightCode;
+        this.flightCode = flightCode.toUpperCase();
         this.origin = origin;
         this.destination = destination;
         this.arrivalTime = arrivalTime;
@@ -33,6 +37,8 @@ public class Flight {
         next = null;
         previous = null;
     }
+
+    // == methods ==
 
     public PassengerList getPassengers() {
         return passengers;
