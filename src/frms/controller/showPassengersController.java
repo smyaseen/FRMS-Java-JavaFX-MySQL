@@ -33,9 +33,6 @@ public class showPassengersController {
     private TableColumn<Passenger,Integer> age;
 
     @FXML
-    private TableColumn<Passenger,String> dOB;
-
-    @FXML
     private TableColumn<Passenger,Boolean> needSpecialAssistance;
 
     @FXML
@@ -63,7 +60,6 @@ public class showPassengersController {
         idNo.setCellValueFactory(new PropertyValueFactory<>("idNo"));
         nationality.setCellValueFactory(new PropertyValueFactory<>("nationality"));
         needSpecialAssistance.setCellValueFactory(new PropertyValueFactory<>("needSpecialAssistance"));
-        dOB.setCellValueFactory(new PropertyValueFactory<>("dOB"));
 
         showPassengersTable.setItems(passengers);
     }

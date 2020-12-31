@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frms.controller.showPassengersController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frms.controller.showPassengersController">
    <top>
       <AnchorPane prefHeight="65.0" prefWidth="1170.0" style="-fx-background-color: #362b56;" BorderPane.alignment="CENTER">
          <children>
@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button onMouseClicked="#deletePassenger" layoutX="842.0" layoutY="33.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #362b56;" text="Delete Passenger" textFill="#fcf7f7">
+            <Button layoutX="842.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#deletePassenger" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #362b56;" text="Delete Passenger" textFill="#fcf7f7">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -52,7 +52,7 @@
       </AnchorPane>
    </bottom>
    <center>
-      <TableView onMouseClicked="#displayPassenger" fx:id="showPassengersTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="showPassengersTable" onMouseClicked="#displayPassenger" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="name" prefWidth="116.0" text="Name" />
           <TableColumn fx:id="age" prefWidth="156.0" text="Age" />
@@ -60,7 +60,6 @@
             <TableColumn fx:id="idNo" prefWidth="156.0" text="NIC No." />
             <TableColumn fx:id="passportNo" prefWidth="156.0" text="Passport No." />
             <TableColumn fx:id="needSpecialAssistance" prefWidth="156.0" text="Need Special Assistance" />
-            <TableColumn fx:id="dOB" prefWidth="75.0" text="Date Of Birth" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

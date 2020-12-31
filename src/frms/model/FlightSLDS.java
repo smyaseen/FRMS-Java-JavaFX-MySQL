@@ -202,15 +202,15 @@ public class FlightSLDS {
         for (Flight i = head; i != null; i = i.getNext()) {
 
             if (i.getOrigin().equalsIgnoreCase(origin) && i.getDestination().equalsIgnoreCase(destination)) {
-
+                System.out.println(i.getFlightCode());
                 if (searchedFlights == null)
                     searchedFlights = i;
 
-                else  {
+                else if (searchedFlights != null)
                     searchedFlights.setNext(i);
-                }
 
-                break;
+
+
             }
         }
 

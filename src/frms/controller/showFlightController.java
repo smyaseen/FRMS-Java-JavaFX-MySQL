@@ -215,7 +215,8 @@ public class showFlightController {
 
                 flights.remove(flightToDelete);
 
-            DataSource.getInstance().deleteFlight(flightToDelete.getFlightCode(),true);
+            DataSource.getInstance().deleteFlight(flightToDelete.getFlightCode(),
+                    !flightToDelete.getPassengers().isEmpty());
 
         } catch (Exception e) {
             showAlert("Flight: " + flightToDelete.getFlightCode() + " could not be deleted!",e.getMessage()
@@ -267,10 +268,10 @@ public class showFlightController {
 
         String alert = "";
 
-        if (!searchOrigin.getText().trim().matches("^[A-Za-z]+$"))
-            alert += "Origin must be alphabets only and no spaces!\n";
-        if (!searchDestination.getText().trim().matches("^[A-Za-z]+$"))
-            alert += "Destination must be alphabets only and no spaces!\n";
+        if (!searchOrigin.getText().trim().matches("[A-Za-z\\s]+"))
+            alert += "Origin must be alphabets only!\n";
+        if (!searchDestination.getText().trim().matches("[A-Za-z\\s]+"))
+            alert += "Destination must be alphabets only!\n";
 
         if (!alert.isBlank()) {
             showAlert(alert,"Search Error!", Alert.AlertType.ERROR);
@@ -288,10 +289,13 @@ public class showFlightController {
 
             ObservableList<Flight> searchedflightsList = FXCollections.observableArrayList();
 
-
-                for (Flight i = searchedFlights; i != null; i = i.getNext()) {
+            Flight i = searchedFlights;
+                for (; i != null; i = i.getNext()) {
                     searchedflightsList.add(i);
+                    if (!i.getOrigin().equals(origin))
+                        break;
                 }
+
 
             showFlightTable.setItems(searchedflightsList);
 

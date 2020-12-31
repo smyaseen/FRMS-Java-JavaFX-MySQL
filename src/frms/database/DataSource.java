@@ -211,7 +211,6 @@ public class DataSource {
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_FLIGHT_CODE, flightCode);
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_NAME, passenger.getName());
             addPassenger.setInt(DBConstants.INDEX_PASSENGERS_AGE, passenger.getAge());
-            addPassenger.setString(DBConstants.INDEX_PASSENGERS_DATE_OF_BIRTH, passenger.getDOB());
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_NATIONALITY, passenger.getNationality());
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_ID_NO, passenger.getIdNo());
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_PASSPORT_NO, passenger.getPassportNo());
@@ -239,12 +238,11 @@ public class DataSource {
                 String flightCode = resultSet.getString(DBConstants.INDEX_PASSENGERS_FLIGHT_CODE);
                 String name = resultSet.getString(DBConstants.INDEX_PASSENGERS_NAME);
                 int age = resultSet.getInt(DBConstants.INDEX_PASSENGERS_AGE);
-                String dOB = resultSet.getString(DBConstants.INDEX_PASSENGERS_DATE_OF_BIRTH);
                 String nationality = resultSet.getString(DBConstants.INDEX_PASSENGERS_NATIONALITY);
                 String idNo = resultSet.getString(DBConstants.INDEX_PASSENGERS_ID_NO);
                 String passportNo = resultSet.getString(DBConstants.INDEX_PASSENGERS_PASSPORT_NO);
 
-                Passenger passenger = new Passenger(name,age,dOB,nationality,idNo,passportNo);
+                Passenger passenger = new Passenger(name,age,nationality,idNo,passportNo);
 
                 for (Flight i = FlightSLDS.getInstance().getHead(); i != null; i = i.getNext()) {
 

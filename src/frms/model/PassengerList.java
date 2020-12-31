@@ -116,7 +116,7 @@ public class PassengerList {
     private boolean FindPassenger(Passenger passenger) {
             for (Passenger i = first; i != null; i = i.getNext()) {
 
-                if (i.getPassportNo().equals(passenger.getPassportNo())
+                if (i.getPassportNo().equalsIgnoreCase(passenger.getPassportNo())
             || i.getIdNo().equalsIgnoreCase(passenger.getIdNo())) {
                     return true;
                 }

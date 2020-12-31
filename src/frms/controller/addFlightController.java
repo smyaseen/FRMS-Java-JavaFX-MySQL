@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class addFlightController {
@@ -86,9 +87,9 @@ public class addFlightController {
             alert += "Flight name must be alphabets only!\n";
         if (!flightCode.getText().trim().matches("^[A-Za-z0-9]+$"))
             alert  += "Flight code must be alphabets and numbers only no spaces!\n";
-        if (!origin.getText().trim().matches("^[A-Za-z\\]+$"))
+        if (!origin.getText().trim().matches("[A-Za-z\\s]+"))
            alert += "Origin must be alphabets only!\n";
-        if (!destination.getText().trim().matches("^[A-Za-z\\]+$"))
+        if (!destination.getText().trim().matches("[A-Za-z\\s]+"))
             alert += "Destination must be alphabets only!\n";
         if (!arrivalTime.getText().trim().matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
             alert += "Arrival Time must be 24h format (hh:mm) only!\n";
@@ -104,6 +105,13 @@ public class addFlightController {
             return;
         }
 
+        // checking date
+
+        if (LocalDate.now().compareTo(LocalDate.of(date.getValue().getYear(),
+                date.getValue().getMonth(),date.getValue().getDayOfMonth())) > 0) {
+            showAlert("Date must be of today or future");
+            return;
+        }
 
         // making flight obj with supplied inputs
 

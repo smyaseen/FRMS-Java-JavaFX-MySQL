@@ -5,10 +5,7 @@ import frms.model.Flight;
 import frms.model.Passenger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-
-import java.time.format.DateTimeFormatter;
 
 public class addPassengerController {
 
@@ -29,8 +26,6 @@ public class addPassengerController {
     @FXML
     private TextField passportNo;
 
-    @FXML
-    private DatePicker dOB;
 
     // supplied flight obj the user selected
 
@@ -60,8 +55,6 @@ public class addPassengerController {
             alert += "Passport No. must not be empty!\n";
         if (age.getText().isBlank())
             alert += "Age must not be empty!\n";
-        if (dOB.getValue() == null)
-            alert += "Date must not be empty!";
 
         if (!alert.isBlank()) {
             showAlert(alert);
@@ -91,7 +84,7 @@ public class addPassengerController {
         }
 
 
-        Passenger passenger = new Passenger(name.getText().trim(),Integer.parseInt(age.getText()),dOB.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")),nationality.getText().trim(),
+        Passenger passenger = new Passenger(name.getText().trim(),Integer.parseInt(age.getText()),nationality.getText().trim(),
                 idNo.getText().trim(),passportNo.getText().trim());
 
         try {

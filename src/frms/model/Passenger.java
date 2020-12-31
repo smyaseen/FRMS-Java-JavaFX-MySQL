@@ -6,7 +6,6 @@ public class Passenger {
 
     private String name;
     private int age;
-    private String dOB;
     private String nationality;
     private String idNo;
     private String passportNo;
@@ -16,10 +15,9 @@ public class Passenger {
 
     //  == constructor ==
 
-    public Passenger(String name, int age, String dOB, String nationality, String idNo, String passportNo) {
+    public Passenger(String name, int age, String nationality, String idNo, String passportNo) {
         this.name = name;
         this.age = age;
-        this.dOB = dOB;
         this.nationality = nationality;
         this.idNo = idNo;
         this.passportNo = passportNo;
@@ -42,14 +40,6 @@ public class Passenger {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public String getDOB() {
-        return dOB;
-    }
-
-    public void setDOB(String dOB) {
-        this.dOB = dOB;
     }
 
     public String getNationality() {

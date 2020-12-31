@@ -147,6 +147,15 @@ public class UpdateFlightController {
             }
         }
 
+
+            //checking date
+
+            if (LocalDate.now().compareTo(LocalDate.of(date.getValue().getYear(),
+                    date.getValue().getMonth(),date.getValue().getDayOfMonth())) > 0) {
+                showAlert("Date must be of today or future");
+                return;
+            }
+
         Flight updateFlight = new Flight(airlineName.getText().trim(),flightCode.getText().trim(),origin.getText().trim(),destination.getText().trim(),
                 arrivalTime.getText().trim(),departureTime.getText().trim(),Integer.parseInt(seats.getText().trim()),
                 Double.parseDouble(fare.getText().trim()),date.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));

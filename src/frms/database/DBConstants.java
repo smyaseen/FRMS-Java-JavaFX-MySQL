@@ -40,7 +40,6 @@ public class DBConstants {
     protected static final String COLUMN_PASSENGERS_FLIGHT_CODE = "flight_code";
     protected static final String COLUMN_PASSENGERS_NAME = "passengers_name";
     protected static final String COLUMN_PASSENGERS_AGE = "age";
-    protected static final String COLUMN_PASSENGERS_DATE_OF_BIRTH = "birth_of_birth";
     protected static final String COLUMN_PASSENGERS_NATIONALITY = "nationality";
     protected static final String COLUMN_PASSENGERS_ID_NO = "id_no";
     protected static final String COLUMN_PASSENGERS_PASSPORT_NO = "passport_no";
@@ -49,17 +48,16 @@ public class DBConstants {
     protected static final int INDEX_PASSENGERS_FLIGHT_CODE = 1;
     protected static final int INDEX_PASSENGERS_NAME = 2;
     protected static final int INDEX_PASSENGERS_AGE = 3;
-    protected static final int INDEX_PASSENGERS_DATE_OF_BIRTH = 4;
-    protected static final int INDEX_PASSENGERS_NATIONALITY = 5;
-    protected static final int INDEX_PASSENGERS_ID_NO = 6;
-    protected static final int INDEX_PASSENGERS_PASSPORT_NO = 7;
-    protected static final int INDEX_PASSENGERS_NEED_SPECIAL_ASSISTANCE = 8;
+    protected static final int INDEX_PASSENGERS_NATIONALITY = 4;
+    protected static final int INDEX_PASSENGERS_ID_NO = 5;
+    protected static final int INDEX_PASSENGERS_PASSPORT_NO = 6;
+    protected static final int INDEX_PASSENGERS_NEED_SPECIAL_ASSISTANCE = 7;
 
     // == queries ==
 
     protected static final String QUERY_ADD_FLIGHT = "INSERT INTO " + DATABASE_FRMS + "." + TABLE_FLIGHTS + " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-    protected static final String QUERY_ADD_PASSENGER = "INSERT INTO " + DATABASE_FRMS + "." + TABLE_PASSENGERS + " VALUES(?,?,?,?,?,?,?,?)";
+    protected static final String QUERY_ADD_PASSENGER = "INSERT INTO " + DATABASE_FRMS + "." + TABLE_PASSENGERS + " VALUES(?,?,?,?,?,?,?)";
 
     protected static final String QUERY_FIND_FLIGHTS = "SELECT * FROM " + DATABASE_FRMS + "." + TABLE_FLIGHTS + " WHERE " +
             COLUMN_FLIGHTS_ORIGIN + " = ?" + " AND " + COLUMN_FLIGHTS_DESTINATION + " = ?";
