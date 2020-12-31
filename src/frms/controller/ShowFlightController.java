@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.util.Optional;
 
-public class showFlightController {
+public class ShowFlightController {
 
     // == fields ==
 
@@ -138,12 +138,14 @@ public class showFlightController {
     // made single method to open dialog of different kinds
     public Object openDialog(String controllerPath) {
         Dialog<ButtonType> dialog = new Dialog<>();
+        //make current stage owner
         dialog.initOwner(anchorPane.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(controllerPath));
 
         try {
 
+            // set view
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
         } catch (IOException e) {
@@ -151,9 +153,12 @@ public class showFlightController {
             return null;
         }
 
+        // add cancel button
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        // show
         dialog.show();
 
+        // return general obj of controller
         return fxmlLoader.getController();
     }
 
@@ -179,12 +184,15 @@ public class showFlightController {
     @FXML
     public void openShowPassengers() {
 
+        // check if anything selected or not
         if (showFlightTable.getSelectionModel().getSelectedItem() == null)
             return;
 
-        showPassengersController showPassengersController =
-                (showPassengersController) openDialog("/frms/view/showPassengers.fxml");
+        // grab controller obj
+        ShowPassengersController showPassengersController =
+                (ShowPassengersController) openDialog("/frms/view/showPassengers.fxml");
 
+        // supply selected flight obj to show passenger table
         showPassengersController.processTable(showFlightTable.getSelectionModel().getSelectedItem());
 
     }
@@ -199,7 +207,7 @@ public class showFlightController {
             return;
         }
 
-
+        // ask for the last time! oh my...
         if (!(showAlert("are you sure to delete: " + flightToDelete.getFlightCode(),
                 "Delete Item Alert!",
                 Alert.AlertType.CONFIRMATION) == ButtonType.OK))
@@ -208,13 +216,17 @@ public class showFlightController {
 
         try {
 
+            // finally delete
             FlightSLDS.getInstance().delete(flightToDelete);
 
+            // just to make it really sure, confirm dat it's ded
                 showAlert("Flight: " + flightToDelete.getFlightCode() + " deleted!","Flight Deleted"
                         , Alert.AlertType.INFORMATION);
 
+                // remove from gui
                 flights.remove(flightToDelete);
 
+                // delete from db
             DataSource.getInstance().deleteFlight(flightToDelete.getFlightCode(),
                     !flightToDelete.getPassengers().isEmpty());
 
@@ -229,12 +241,15 @@ public class showFlightController {
     private ButtonType showAlert(String content, String header, Alert.AlertType alertType) {
 
         Alert alert = new Alert(alertType);
+        // make current stage owner
         alert.initOwner(showFlightTable.getScene().getWindow());
         alert.setHeaderText(header);
         alert.setContentText(content);
 
+        // show and wait for further instructions
         Optional<ButtonType> result = alert.showAndWait();
 
+        // return if null
         return result.orElse(null);
 
     }
@@ -259,15 +274,18 @@ public class showFlightController {
     @FXML
     public void searchFlight() {
 
+        // check if not blank
         if (searchOrigin.getText().isBlank() || searchDestination.getText().isBlank()) {
                 return;
         }
-        else if (flights.isEmpty())
+        // check if even flight has anything
+        else if (FlightSLDS.getInstance().isEmpty())
             return;
 
 
         String alert = "";
 
+        // match patterns if not show alert
         if (!searchOrigin.getText().trim().matches("[A-Za-z\\s]+"))
             alert += "Origin must be alphabets only!\n";
         if (!searchDestination.getText().trim().matches("[A-Za-z\\s]+"))
@@ -280,23 +298,28 @@ public class showFlightController {
 
         try {
 
+            // supply data
             Flight searchedFlights =
                   FlightSLDS.getInstance().search(searchOrigin.getText(),searchDestination.getText());
 
 
+            // if returned null, means no flights available
             if (searchedFlights == null)
                 throw new Exception("No Flights Available on provided route!");
 
+            // DS for gui
             ObservableList<Flight> searchedflightsList = FXCollections.observableArrayList();
 
+
             Flight i = searchedFlights;
-                for (; i != null; i = i.getNext()) {
+                for (; i != null || i.getOrigin() != origin.getText(); i = i.getNext()) {
                     searchedflightsList.add(i);
-                    if (!i.getOrigin().equals(origin))
-                        break;
                 }
 
+            if (i == null)
+                return;
 
+                // set searched flights to gui
             showFlightTable.setItems(searchedflightsList);
 
         } catch (Exception e) {

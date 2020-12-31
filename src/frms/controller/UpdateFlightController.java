@@ -180,8 +180,8 @@ public class UpdateFlightController {
             DataSource.getInstance().addFlight(updateFlight);
 
             // refresh gui
-            showFlightController.flights.remove(flight);
-            showFlightController.flights.add(updateFlight);
+            ShowFlightController.flights.remove(flight);
+            ShowFlightController.flights.add(updateFlight);
             this.flight = updateFlight;
             showAlert("Flight Updated!");
 
@@ -198,19 +198,23 @@ public class UpdateFlightController {
 
         Alert inputAlert;
 
+        // show info if certain text
         if (text == "Flight Updated!") {
             inputAlert = new Alert(Alert.AlertType.INFORMATION);
             inputAlert.setHeaderText("Success!");
         }
+        //else show error
         else {
             inputAlert = new Alert(Alert.AlertType.ERROR);
             inputAlert.setHeaderText("input error");
         }
 
+        // make current stage the owner
         inputAlert.initOwner(airlineName.getScene().getWindow());
 
         inputAlert.setContentText(text);
 
+        // show and wait for further instructions
         inputAlert.showAndWait();
 
 

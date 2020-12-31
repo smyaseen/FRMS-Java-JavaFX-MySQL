@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
-public class addPassengerController {
+public class AddPassengerController {
 
      // == fields ==
 
@@ -112,12 +112,12 @@ public class addPassengerController {
         }
 
         // add in gui
-        showPassengersController.passengers.add(passenger);
+        ShowPassengersController.passengers.add(passenger);
 
         try {
             // basically performing refreshing gui by removing and adding
-            showFlightController.flights.remove(flight);
-            showFlightController.flights.add(flight);
+            ShowFlightController.flights.remove(flight);
+            ShowFlightController.flights.add(flight);
 
         } catch (Exception e) {
             showAlert(e.getMessage());
@@ -131,23 +131,29 @@ public class addPassengerController {
 
         Alert inputAlert;
 
+        // if certain text, show info
         if (text == "Passenger Added!") {
             inputAlert = new Alert(Alert.AlertType.INFORMATION);
             inputAlert.setHeaderText("Success!");
         }
+
+        // show error
         else {
             inputAlert = new Alert(Alert.AlertType.ERROR);
             inputAlert.setHeaderText("input error");
         }
 
+        // make current dialog owner
         inputAlert.initOwner(nationality.getScene().getWindow());
 
         inputAlert.setContentText(text);
 
+        //show and wait for further instructions
         inputAlert.showAndWait();
 
     }
 
+    // supplied user selected flight obj
     public void process(Flight flight) {
         if (flight != null)
             this.flight = flight;

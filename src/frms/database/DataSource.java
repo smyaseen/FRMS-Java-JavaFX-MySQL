@@ -14,6 +14,7 @@ public class DataSource {
 
     // == private final fields ==
 
+    // CHANGE NAME AND URL IF DB IS DIFF!!
     private final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/frms";
 
     // == private fields ==
@@ -48,12 +49,15 @@ public class DataSource {
 
     // == public static fields ==
 
+    // opens db
     public boolean openDb() {
 
         try {
 
+            // CHANGE USER AND PASS!!!
             connection = DriverManager.getConnection(CONNECTION_STRING, "root", "admin");
 
+            // prepare statements of every query
             addFlight = connection.prepareStatement(DBConstants.QUERY_ADD_FLIGHT);
             addPassenger = connection.prepareStatement(DBConstants.QUERY_ADD_PASSENGER);
             findFlights = connection.prepareStatement(DBConstants.QUERY_FIND_FLIGHTS);
@@ -77,8 +81,12 @@ public class DataSource {
 
     }
 
+    //close db
     public void closeDb() {
         try {
+
+            //securely closes all
+
 
             if (addFlight == null)
                 throw new Exception("Add Flight PS null");
@@ -134,10 +142,12 @@ public class DataSource {
         }
     }
 
+    //add flights
     public boolean addFlight(Flight flight) {
 
         try {
 
+            // setting values in query
             addFlight.setString(DBConstants.INDEX_FLIGHTS_AIRLINE_NAME, flight.getAirlineName());
             addFlight.setString(DBConstants.INDEX_FLIGHTS_FLIGHT_CODE, flight.getFlightCode());
             addFlight.setString(DBConstants.INDEX_FLIGHTS_ORIGIN, flight.getOrigin());
@@ -153,6 +163,7 @@ public class DataSource {
 
             int affectedRows = addFlight.executeUpdate();
 
+            // if not updated, show error
             if (affectedRows != 1)
                 throw new SQLException("Couldn't add user");
 
@@ -166,6 +177,7 @@ public class DataSource {
 
     }
 
+    // load flights from db
     public boolean loadAllFlights() {
 
         try {
@@ -173,6 +185,7 @@ public class DataSource {
             loadFlights.execute(DBConstants.QUERY_LOAD_FLIGHTS);
             ResultSet resultSet = loadFlights.executeQuery();
 
+            // see if flights available in db
             while (resultSet.next()) {
 
                 String airlineName = resultSet.getString(DBConstants.INDEX_FLIGHTS_AIRLINE_NAME);
@@ -205,9 +218,11 @@ public class DataSource {
 
     }
 
+    // add passenger
     public void addPassenger(String flightCode, Passenger passenger) throws Exception {
 
 
+        // set values in query
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_FLIGHT_CODE, flightCode);
             addPassenger.setString(DBConstants.INDEX_PASSENGERS_NAME, passenger.getName());
             addPassenger.setInt(DBConstants.INDEX_PASSENGERS_AGE, passenger.getAge());
@@ -223,6 +238,7 @@ public class DataSource {
 
     }
 
+    // load all passengers from db
     public void loadAllPassengers() {
 
         if (FlightSLDS.getInstance().isEmpty())
@@ -233,6 +249,7 @@ public class DataSource {
             loadPassengers.execute(DBConstants.QUERY_LOAD_PASSENGERS);
             ResultSet resultSet = loadPassengers.executeQuery();
 
+            // load as many
             while (resultSet.next()) {
 
                 String flightCode = resultSet.getString(DBConstants.INDEX_PASSENGERS_FLIGHT_CODE);
@@ -259,8 +276,10 @@ public class DataSource {
         }
     }
 
+    // refactor seats
     public void updateFlightSeats(String flightCode,int seatsOccupied,int seatsRemaining) throws Exception {
 
+        // set values in query
             updateFlightSeats.setInt(1,seatsOccupied);
             updateFlightSeats.setInt(2,seatsRemaining);
             updateFlightSeats.setString(3,flightCode);
@@ -269,46 +288,47 @@ public class DataSource {
 
     }
 
-    public boolean deleteFlight(String flightCode,boolean deletePassengersAlso) {
+    // delete flight
+    public void deleteFlight(String flightCode,boolean deletePassengersAlso) throws Exception {
 
-        try {
 
+        //set value to query
             deleteFlight.setString(1,flightCode);
 
             int rowsAffected = deleteFlight.executeUpdate();
 
+            // delete if passenger available
             if (deletePassengersAlso)
             deleteAllPassengersFromAFlight.executeUpdate();
 
             if (rowsAffected != 1)
                 throw new Exception("delete error!");
 
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("delete flight exception: " + e.getMessage());
-            return false;
-        }
 
     }
 
+    // delete passenger
     public void deletePassenger(String flightCode,String idNo) throws Exception {
 
+        // set value to query
             deletePassenger.setString(1,flightCode);
             deletePassenger.setString(2,idNo);
 
             int rowsAffected = deletePassenger.executeUpdate();
 
+            // error if not updated
             if (rowsAffected != 1)
                 throw new Exception("delete passenger error!");
 
     }
 
+    // update flight code
     public void updatePassengersFlightCode(String oldFlightCode,String newFlightCode) throws Exception {
 
         updatePassengersFlightCode.setString(1,newFlightCode);
         updatePassengersFlightCode.setString(2,oldFlightCode);
 
+        updatePassengersFlightCode.executeUpdate();
 
     }
 

@@ -3,7 +3,7 @@ package frms.controller;
 import frms.util.SceneSelector;
 import javafx.fxml.FXML;
 
-public class homePageController {
+public class HomePageController {
 
     // opens show flight gui
     @FXML

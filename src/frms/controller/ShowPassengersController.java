@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.util.Optional;
 
-public class showPassengersController {
+public class ShowPassengersController {
 
     // == fields ==
 
@@ -105,19 +105,23 @@ public class showPassengersController {
     @FXML
     public void openAddPassenger() {
 
+        // if no remaining, return
         if (flight.getSeatsRemaining() <= 0) {
             showAlert("No more seats remaining!","Book Passenger error!", Alert.AlertType.ERROR);
             return;
         }
 
 
+
         Dialog<ButtonType> dialog = new Dialog<>();
+        // make current stage owner
         dialog.initOwner(borderPane.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/frms/view/AddPassenger.fxml"));
 
         try {
 
+            // set view to dialog
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
         } catch (IOException e) {
@@ -125,7 +129,8 @@ public class showPassengersController {
             return;
         }
 
-        addPassengerController addPassengerController = fxmlLoader.getController();
+        //get controller obj
+        AddPassengerController addPassengerController = fxmlLoader.getController();
         addPassengerController.process(flight);
 
 
@@ -140,11 +145,12 @@ public class showPassengersController {
 
         Passenger passengerToDelete = showPassengersTable.getSelectionModel().getSelectedItem();
 
+        // return if null
         if (passengerToDelete == null) {
             return;
         }
 
-
+        // ask for just one more time
         if (!(showAlert("are you sure to delete: " + passengerToDelete.getName() + "\nid: "
                         + passengerToDelete.getIdNo() + "\npassport: "
                         + passengerToDelete.getPassportNo(),
@@ -155,20 +161,24 @@ public class showPassengersController {
 
         try {
 
+            // remove from ds
             flight.getPassengers().removePassenger(flight.getFlightCode(),passengerToDelete);
 
+            passengers.remove(passengerToDelete);
+
+            // refactor seats
+            flight.setSeatsOccupied(-1);
+            flight.setSeatsRemaining(1);
+
+            // refresh in gui
+            ShowFlightController.flights.remove(flight);
+            ShowFlightController.flights.add(flight);
+
+            /// show confirmation
             showAlert("Passenger: " + passengerToDelete.getName() + "\nid: "
                             + passengerToDelete.getIdNo() + "\npassport: "
                             + passengerToDelete.getPassportNo() + "\ndeleted!","Passenger Deleted"
                     , Alert.AlertType.INFORMATION);
-
-            passengers.remove(passengerToDelete);
-
-            flight.setSeatsOccupied(-1);
-            flight.setSeatsRemaining(1);
-
-            showFlightController.flights.remove(flight);
-            showFlightController.flights.add(flight);
 
 
         } catch (Exception e) {

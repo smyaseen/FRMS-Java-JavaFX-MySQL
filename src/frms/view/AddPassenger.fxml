@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane accessibleText="Asher" prefHeight="396.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frms.controller.addPassengerController">
+<AnchorPane accessibleText="Asher" prefHeight="396.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frms.controller.AddPassengerController">
    <children>
       <AnchorPane prefHeight="73.0" prefWidth="850.0" style="-fx-background-color: #362b56;">
          <children>

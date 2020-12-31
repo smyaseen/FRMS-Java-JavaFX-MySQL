@@ -1,5 +1,6 @@
 package frms;
 
+import frms.controller.ShowFlightController;
 import frms.database.DataSource;
 import frms.util.SceneSelector;
 import javafx.application.Application;
@@ -62,7 +63,7 @@ public class Main extends Application {
         DataSource.getInstance().loadAllPassengers();
 
         // setting flights in gui
-        if(!(frms.controller.showFlightController.loadAllFlightsGUI())) {
+        if(!(ShowFlightController.loadAllFlightsGUI())) {
 
             System.out.println("error loading Flights in GUI exiting application..");
             Platform.exit();

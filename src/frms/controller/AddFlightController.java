@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class addFlightController {
+public class AddFlightController {
 
     // == fields ==
 
@@ -133,7 +133,7 @@ public class addFlightController {
         }
 
         // adding in gui
-        showFlightController.flights.add(flight);
+        ShowFlightController.flights.add(flight);
         showAlert("Flight Added!");
     }
 
@@ -143,19 +143,24 @@ public class addFlightController {
 
         Alert inputAlert;
 
+        // check if certain msg, then show diff type
         if (text == "Flight Added!") {
             inputAlert = new Alert(Alert.AlertType.INFORMATION);
             inputAlert.setHeaderText("Success!");
         }
+
+        // else show error with supplied text
         else {
              inputAlert = new Alert(Alert.AlertType.ERROR);
             inputAlert.setHeaderText("input error");
         }
 
+        // make current dialog owner
         inputAlert.initOwner(addFlight.getScene().getWindow());
 
         inputAlert.setContentText(text);
 
+        // show and wait for further instructions
         inputAlert.showAndWait();
 
 
