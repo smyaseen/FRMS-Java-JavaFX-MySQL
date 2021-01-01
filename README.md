@@ -1,6 +1,35 @@
 # FRMS-Java-JavaFX-MySQL
 Flight Inventory Management App in Java and JavaFX
 
+To run this application:
+
+
+Requirements:
+
+MySQL 8+
+JavaFX 15
+Connector J
+JDK 11+ 
+
+Setup:
+
+1) Create a database name "frms"
+2) Import the provided sql tables
+
+   IF having problem in import then we have provided pic of schema
+
+	a. make db with name frms
+	b. create one table name with flights and one with passengers
+	c. create same tables with same table name and
+	same column name, types and primary key and everything pic has...
+
+
+3) Change the user,password & port of MySQL in database/DataSource.java if changed
+4) Include Connector J library and JavaFX 15 libraries in intellij project, 
+provided in frms/lib folder
+
+finally run! 
+
 Features:
 
 Used Own Made Custom Linked List Data Structure
