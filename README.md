@@ -18,7 +18,7 @@ Setup:
 
    IF having problem in import then we have provided pic of schema
 
-	a. make db with name frmsz<br>
+	a. make db with name frms<br>
 	b. create one table name with flights and one with passengers<br>
 	c. create same tables with same table name and<br>
 	same column name, types and primary key and everything pic has in db folder...
