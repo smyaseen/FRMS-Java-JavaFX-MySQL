@@ -21,7 +21,7 @@ Setup:
 	a. make db with name frms
 	b. create one table name with flights and one with passengers
 	c. create same tables with same table name and
-	same column name, types and primary key and everything pic has...
+	same column name, types and primary key and everything pic has in db folder...
 
 
 3) Change the user,password & port of MySQL in database/DataSource.java if changed
