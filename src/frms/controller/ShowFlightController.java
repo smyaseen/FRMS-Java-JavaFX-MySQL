@@ -312,12 +312,17 @@ public class ShowFlightController {
 
 
             Flight i = searchedFlights;
-                for (; i != null || i.getOrigin() != origin.getText(); i = i.getNext()) {
+                for (; i != null; i = i.getNext()) {
+
+                    if (!i.getOrigin().equals(searchOrigin.getText())) {
+                        System.out.println(i.getOrigin());
+                        System.out.println(searchOrigin.getText());
+
+                        break;
+                    }
+
                     searchedflightsList.add(i);
                 }
-
-            if (i == null)
-                return;
 
                 // set searched flights to gui
             showFlightTable.setItems(searchedflightsList);

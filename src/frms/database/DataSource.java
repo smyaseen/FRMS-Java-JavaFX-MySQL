@@ -298,8 +298,10 @@ public class DataSource {
             int rowsAffected = deleteFlight.executeUpdate();
 
             // delete if passenger available
-            if (deletePassengersAlso)
+            if (deletePassengersAlso) {
+                deleteAllPassengersFromAFlight.setString(1,flightCode);
             deleteAllPassengersFromAFlight.executeUpdate();
+            }
 
             if (rowsAffected != 1)
                 throw new Exception("delete error!");

@@ -157,6 +157,7 @@ public class FlightSLDS {
             // set old's next's previous to updated
             // set head to updated
             // set head to old's next
+
         } else if (oldFlight == head) {
             head = updatedFlight;
             oldFlight.getNext().setPrevious(updatedFlight);
@@ -198,18 +199,20 @@ public class FlightSLDS {
         // and return
 
         Flight searchedFlights = null;
+        Flight currentFlight = null;
 
         for (Flight i = head; i != null; i = i.getNext()) {
 
-            if (i.getOrigin().equalsIgnoreCase(origin) && i.getDestination().equalsIgnoreCase(destination)) {
-                System.out.println(i.getFlightCode());
-                if (searchedFlights == null)
+            if (i.getOrigin().equalsIgnoreCase(origin.trim()) && i.getDestination().equalsIgnoreCase(destination.trim())) {
+                if (searchedFlights == null) {
                     searchedFlights = i;
+                    currentFlight = i;
+                }
 
-                else if (searchedFlights != null)
-                    searchedFlights.setNext(i);
-
-
+                else if (searchedFlights != null) {
+                    currentFlight.setNext(i);
+                    currentFlight = i;
+                }
 
             }
         }
