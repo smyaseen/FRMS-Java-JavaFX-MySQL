@@ -3,7 +3,6 @@ Flight Inventory Management App in Java and JavaFX
 
 To run this application:
 
-
 Requirements:
 
 MySQL 8+
